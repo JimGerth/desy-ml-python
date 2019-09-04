@@ -68,4 +68,4 @@ class AdalineGDRegression(object):
 
     def predict(self, X):
         '''Return class label after unit step.'''
-        return X
+        return self.net_input(X)
