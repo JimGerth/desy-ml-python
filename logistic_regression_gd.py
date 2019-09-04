@@ -70,4 +70,4 @@ class LogisticRegressionGD(object):
 
     def predict(self, X):
         '''Return class label after unit step.'''
-        return np.where(self.activation(self.net_input(X)) >= 0.5, 1, 02)
+        return np.where(self.activation(self.net_input(X)) >= 0.5, 1, 0)
