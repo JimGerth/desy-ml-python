@@ -56,7 +56,7 @@ class LogisticRegressionGD(object):
             self.w_[0] += self.eta * errors.sum()
 
             # note that we compute the logistic cost now instead of the sum of squared errors cost
-            cost = (-y.dot(np.log(output)) - ((1 - y).dot(np.log(1 - output))))
+            cost = -y.dot(np.log(output)) - (1 - y).dot(np.log(1 - output))
             self.cost_.append(cost)
         return self
 
