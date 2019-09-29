@@ -14,20 +14,18 @@ class LogisticRegressionGD(object):
     def activation(self, z):
         return 1.0 / (1.0 + np.exp(-np.clip(z, -250, 250)))
 
-    def fit(self, X, y):
+    def fit(self, inputs, labels):
         rgen = np.random.RandomState(self.seed)
-        self.weights = rgen.normal(loc=0.0, scale=0.01, size=(X.shape[1], 1))
+        self.weights = rgen.normal(loc=0.0, scale=0.01, size=(inputs.shape[1], 1))
         self.bias = rgen.normal(loc=0.0, scale=0.01)
         self.cost = []
 
-        for _ in range(self.epochs):
-            weighted_sum = self.weighted_sum(X)
-            output = self.activation(weighted_sum)
-            errors = (y - output)
-            self.weights += self.learning_rate * X.T.dot(y - self.activation(self.weighted_sum(X)))
+        for epoch in range(self.epochs):
+            outputs = self.activation(self.weighted_sum(inputs))
+            errors = (labels - outputs)
+            self.weights += self.learning_rate * inputs.T.dot(errors)
             self.bias += self.learning_rate * errors.sum()
-            #cost = -y.dot(np.log(output)) - (1 - y).dot(np.log(1 - output))
-            #self.cost.append(cost)
+            self.cost.append(-labels.dot(np.log(outputs)) - (1 - labels).dot(np.log(1 - outputs)))
         return self
 
     def predict(self, X):
