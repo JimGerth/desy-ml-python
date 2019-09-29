@@ -25,7 +25,7 @@ class LogisticRegressionGD(object):
             errors = (labels - outputs)
             self.weights += self.learning_rate * inputs.T.dot(errors)
             self.bias += self.learning_rate * errors.sum()
-            self.cost.append(-labels.dot(np.log(outputs)) - (1 - labels).dot(np.log(1 - outputs)))
+            self.cost.append((-labels.T.dot(np.log(outputs)) - (1 - labels.T).dot(np.log(1 - outputs)))[0][0])
         return self
 
     def predict(self, X):
