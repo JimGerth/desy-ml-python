@@ -25,7 +25,7 @@ class AdalineGD(object):
             errors = (y - output)
             self.weights += self.learning_rate * X.T.dot(errors)
             self.bias += self.learning_rate * errors.sum()
-            cost = (errors ** 2).sum() / 2.0
+            cost = (errors ** 2).sum() / 200.0 # divide by big number to avoid overflow...
             self.cost.append(cost)
         return self
 
