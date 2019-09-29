@@ -8,7 +8,7 @@ class LogisticRegressionGD(object):
         self.epochs = epochs
         self.seed = seed
 
-    def weighted_sum(self, X):
+    def net_input(self, X):
         return X.dot(self.weights) + self.bias
 
     def activation(self, z):
@@ -21,7 +21,7 @@ class LogisticRegressionGD(object):
         self.cost = []
 
         for epoch in range(self.epochs):
-            outputs = self.activation(self.weighted_sum(inputs))
+            outputs = self.activation(self.net_input(inputs))
             errors = (labels - outputs)
             self.weights += self.learning_rate * inputs.T.dot(errors)
             self.bias += self.learning_rate * errors.sum()
@@ -29,4 +29,4 @@ class LogisticRegressionGD(object):
         return self
 
     def predict(self, X):
-        return np.where(self.activation(self.weighted_sum(X)) >= 0.5, 1, 0)
+        return np.where(self.activation(self.net_input(X)) >= 0.5, 1, 0)

@@ -3,7 +3,7 @@ import numpy as np
 
 class AdalineGD(object):
 
-    def __init__(self, learning_rate=0.01, epochs=50, seed=10):
+    def __init__(self, learning_rate=0.01, epochs=100, seed=10):
         self.learning_rate = learning_rate
         self.epochs = epochs
         self.seed = seed
@@ -11,8 +11,8 @@ class AdalineGD(object):
     def net_input(self, X):
         return X.dot(self.weights) + self.bias
 
-    def activation(self, X):
-        return X
+    def activation(self, z):
+        return z
 
     def fit(self, X, y):
         rgen = np.random.RandomState(self.seed)
